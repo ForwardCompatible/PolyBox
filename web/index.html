@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyBox - System</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#f59e0b',
+            primaryHover: '#fbbf24',
+            surface: '#18181b',
+            background: '#09090b',
+            input: '#27272a',
+            border: '#3f3f46',
+            success: '#4ade80',
+            danger: '#f87171',
+            dangerHover: '#fca5a5',
+            warning: '#fbbf24'
+          },
+          fontFamily: {
+            system: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif']
+          }
+        }
+      }
+    }
+    </script>
+    <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
+
+    <!-- Shoelace Web Components -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/themes/dark.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.19.1/cdn/shoelace.js"></script>
+</head>
+<body>
+    <nav id="sidebar">
+        <div id="sidebar-toggle">
+            <span class="toggle-icon">◀</span>
+        </div>
+        <div class="nav-item active" data-page="chat">
+            <span class="nav-icon">💬</span>
+            <span class="nav-label">Chat</span>
+        </div>
+        <div class="nav-item" data-page="system">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-label">System</span>
+        </div>
+        <div style="margin-top: auto;">
+            <div class="nav-item" data-page="settings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-container">
+        <main id="content-container">
+        </main>
+
+        <footer>
+            <div class="footer-left">
+            </div>
+            <div class="footer-center">
+                <span class="hw-stat">CPU: <span id="cpu-value">-- %</span></span>
+                <span class="hw-stat">RAM: <span id="ram-value">-- / -- GB</span></span>
+                <span class="hw-stat">VRAM: <span id="vram-value">-- / -- GB</span></span>
+            </div>
+            <div class="footer-right">
+                <div class="service-status">
+                    <span id="orch-status" class="status-dot"></span>
+                    <span class="service-label">ORCH</span>
+                </div>
+                <div class="service-status">
+                    <span id="embed-status" class="status-dot"></span>
+                    <span class="service-label">EMBED</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module">
+        import Sidebar from '/js/sidebar.js';
+        import Router from '/js/router.js';
+        import Footer from '/js/footer.js';
+        import SystemOrch from '/js/system-orch.js';
+        import SystemEmbed from '/js/system-embed.js';
+        import Settings from '/js/settings.js';
+        import Database from '/js/database.js';
+        import Chat from '/js/chat.js';
+        import ActionModal from '/js/action-modal.js';
+
+        // Page module registry
+        const pageModules = {
+            chat: {
+                init: () => {
+                    Chat.init();
+                    ActionModal.init();
+                },
+                unload: () => {
+                    Chat.unload();
+                }
+            },
+            system: {
+                init: () => {
+                    SystemOrch.init();
+                    SystemEmbed.init();
+                },
+                unload: () => {
+                    SystemOrch.unload();
+                    SystemEmbed.unload();
+                }
+            },
+            settings: {
+                init: () => Settings.init(),
+                unload: () => Settings.unload()
+            },
+            database: {
+                init: () => Database.init(),
+                unload: () => Database.unload()
+            }
+        };
+
+        // Initialize
+        Sidebar.init();
+        Footer.init();
+
+        Router.init(pageModules);
+    </script>
+</body>
+</html>

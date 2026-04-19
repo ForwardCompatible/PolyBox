@@ -1,0 +1,42 @@
+<div class="chat-layout">
+<div class="chat-history-container">
+<div id="chat-messages" class="chat-messages">
+<!-- Chat messages will be rendered here -->
+</div>
+</div>
+
+<div class="chat-input-bar">
+<div class="chat-input-wrapper">
+<button class="chat-input-btn chat-action-btn">
+<span>+</span>
+</button>
+<textarea id="chat-input" class="chat-input-field" placeholder="Send a message..." rows="1"></textarea>
+<div class="chat-input-actions">
+<button class="chat-input-btn chat-attach-btn">
+<span>📎</span>
+</button>
+<button id="chat-send-btn" class="chat-input-btn chat-send-btn">
+<span>➤</span>
+</button>
+<button id="chat-stop-btn" class="chat-input-btn chat-stop-btn hidden">
+<span>⏹</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Action Tag Modal -->
+<div id="action-modal" class="modal-overlay hidden">
+<div class="modal-container">
+<div class="modal-header">
+<h2>Action Tags</h2>
+<button class="modal-close" aria-label="Close modal">&times;</button>
+</div>
+<div id="action-list" class="modal-body">
+<!-- Action tag rows will be rendered here -->
+</div>
+</div>
+</div>
+
+<script src="js/action-modal.js"></script>

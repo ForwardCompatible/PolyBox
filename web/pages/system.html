@@ -1,0 +1,246 @@
+<!-- System Stats Section (placeholder for future use) -->
+<section id="system-stats-section" class="card">
+<h2>System Stats</h2>
+<div id="system-stats-display"></div>
+</section>
+
+<sl-tab-group placement="start">
+    <sl-tab slot="nav" panel="orchestrator">Orchestrator</sl-tab>
+    <sl-tab slot="nav" panel="embedding">Embedding</sl-tab>
+    <sl-tab slot="nav" panel="container">Container</sl-tab>
+    <sl-tab slot="nav" panel="database">Database</sl-tab>
+
+    <sl-tab-panel name="orchestrator">
+    <!-- Action Buttons Section -->
+    <section id="orch-actions-section" class="card">
+    <h2>Actions</h2>
+    <div class="button-row">
+    <button id="orch-save-config-btn" class="btn-secondary">Save Settings</button>
+    <button id="orch-launch-btn" class="btn-primary">Launch Inference</button>
+    <button id="orch-stop-btn" class="btn-danger" disabled>Stop</button>
+    </div>
+    <div id="orch-action-message" class="message hidden"></div>
+    </section>
+    <!-- Model Selection Section -->
+    <section id="orch-model-section" class="card">
+    <h2>Model Selection</h2>
+    <div class="form-grid">
+    <div class="form-group full-width">
+    <label for="orch-model-select">Select Model:</label>
+    <select id="orch-model-select">
+    <option value="">-- Loading models... --</option>
+    </select>
+    </div>
+	<div class="form-group">
+		<label for="orch-port">Port:</label>
+		<input type="number" id="orch-port" placeholder="Service port">
+	</div>
+	<div class="form-group">
+		<label for="orch-ctx-size">Context size:</label>
+		<input type="number" id="orch-ctx-size" placeholder="Context window">
+	</div>
+	<div class="form-group">
+		<label for="orch-output-reserve">Output reserve:</label>
+		<input type="number" id="orch-output-reserve" placeholder="Tokens reserved for output">
+	</div>
+    <div class="form-group checkbox-group">
+    <input type="checkbox" id="orch-auto-start">
+    <label for="orch-auto-start">Auto-start on system startup</label>
+    </div>
+    </div>
+    <button id="orch-refresh-models" class="btn-secondary" style="margin-top: 1rem;">Refresh Models</button>
+    </section>
+    
+    <!-- Launch Configuration Section -->
+    <section id="orch-config-section" class="card">
+    <h2>Launch Configuration</h2>
+    <div class="form-grid">
+	<div class="form-group">
+		<label for="orch-n-gpu-layers">n-gpu-layers:</label>
+		<input type="number" id="orch-n-gpu-layers" placeholder="-1 = all">
+	</div>
+	<div class="form-group">
+		<label for="orch-temperature">Temperature:</label>
+		<input type="number" id="orch-temperature" step="0.1" min="0" max="2" placeholder="0.0 - 2.0">
+	</div>
+	<div class="form-group">
+		<label for="orch-repeat-penalty">Repeat penalty:</label>
+		<input type="number" id="orch-repeat-penalty" step="0.05" min="1.0" max="2.0" placeholder="1.0 - 2.0">
+	</div>
+    <div class="form-group">
+    <label for="orch-cache-type-k">Cache Type K:</label>
+    <select id="orch-cache-type-k">
+    <option value="">N/A</option>
+    <option value="f32">f32</option>
+    <option value="bf16">bf16</option>
+    <option value="f16">f16</option>
+    <option value="q8_0">q8_0</option>
+    <option value="q5_1">q5_1</option>
+    <option value="q5_0">q5_0</option>
+    <option value="iq4_nl">iq4_nl</option>
+    <option value="q4_1">q4_1</option>
+    <option value="q4_0">q4_0</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <label for="orch-cache-type-v">Cache Type V:</label>
+    <select id="orch-cache-type-v">
+    <option value="">N/A</option>
+    <option value="f32">f32</option>
+    <option value="bf16">bf16</option>
+    <option value="f16">f16</option>
+    <option value="q8_0">q8_0</option>
+    <option value="q5_1">q5_1</option>
+    <option value="q5_0">q5_0</option>
+    <option value="iq4_nl">iq4_nl</option>
+    <option value="q4_1">q4_1</option>
+    <option value="q4_0">q4_0</option>
+    </select>
+    </div>
+    <div class="form-group checkbox-group">
+    <input type="checkbox" id="orch-flash-attn">
+    <label for="orch-flash-attn">Flash Attention</label>
+    </div>
+    <div class="form-group checkbox-group">
+    <input type="checkbox" id="orch-cache-ram">
+    <label for="orch-cache-ram">Cache in RAM</label>
+    </div>
+    </div>
+    </section>
+    </sl-tab-panel>
+    
+    <sl-tab-panel name="embedding">
+    <!-- Embedding Service Status Section -->
+    <section id="emb-status-section" class="card">
+    <h2>Service Status</h2>
+    <div id="emb-status-display">
+    <span id="emb-status-indicator" class="status-dot status-stopped"></span>
+    <span id="emb-status-text">Stopped</span>
+    </div>
+    <div id="emb-status-details"></div>
+    </section>
+    
+    <!-- Embedding Model Configuration Section -->
+    <section id="emb-model-section" class="card">
+    <h2>Model Selection</h2>
+    <div class="form-grid">
+    <div class="form-group full-width">
+    <label for="emb-model-select">Select Model:</label>
+    <select id="emb-model-select">
+    <option value="">-- Loading models... --</option>
+    </select>
+    </div>
+	<div class="form-group">
+		<label for="emb-port">Port:</label>
+		<input type="number" id="emb-port" placeholder="Service port">
+	</div>
+	<div class="form-group">
+		<label for="emb-ctx-size">Context size:</label>
+		<input type="number" id="emb-ctx-size" placeholder="Context window">
+	</div>
+	<div class="form-group">
+		<label for="emb-dim">DIM:</label>
+		<input type="number" id="emb-dim" placeholder="Embedding dimension (required)">
+	</div>
+    <div class="form-group checkbox-group">
+    <input type="checkbox" id="emb-auto-start">
+    <label for="emb-auto-start">Auto-start on system startup</label>
+    </div>
+    </div>
+    <button id="emb-refresh-models" class="btn-secondary" style="margin-top: 1rem;">Refresh Models</button>
+    </section>
+    <!-- Embedding Actions Section -->
+    <section id="emb-actions-section" class="card">
+    <h2>Actions</h2>
+    <div class="button-row">
+    <button id="emb-save-btn" class="btn-secondary">Save Settings</button>
+    <button id="emb-start-btn" class="btn-primary">Start Embedding Service</button>
+    <button id="emb-stop-btn" class="btn-danger" disabled>Stop Service</button>
+    </div>
+    <div id="emb-action-message" class="message hidden"></div>
+    </section>
+    </sl-tab-panel>
+    <sl-tab-panel name="container">
+    <!-- Post-MVP Banner -->
+    <section class="card" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%); border: 2px solid #ffc107; margin-bottom: 1rem;">
+    <h2 style="color: #856404; margin-top: 0;">🚧 Coming Soon — Post-MVP Feature</h2>
+    <p style="color: #856404; margin: 0;">Container management controls are visible for planning purposes but are non-functional until Podman integration is implemented.</p>
+    </section>
+    <!-- Container Status Section -->
+    <section id="container-status-section" class="card">
+                <h2>Container Status</h2>
+                <div id="container-status-display">
+                    <span id="container-status-indicator" class="status-dot status-stopped"></span>
+                    <span id="container-status-text">Stopped</span>
+                </div>
+                <div id="container-status-details"></div>
+            </section>
+
+            <!-- Container Controls Section -->
+            <section id="container-controls-section" class="card">
+                <h2>Container Controls</h2>
+                <div class="form-grid">
+                    <div class="form-group checkbox-group">
+                    <input type="checkbox" id="container-auto-start" disabled>
+                    <label for="container-auto-start">Auto-start on system startup</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Container Actions Section -->
+            <section id="container-actions-section" class="card">
+                <h2>Actions</h2>
+                <div class="button-row">
+                <button id="container-start-btn" class="btn-primary" disabled>Start Container</button>
+                <button id="container-stop-btn" class="btn-danger" disabled>Stop Container</button>
+                </div>
+            </section>
+
+            <!-- Backup & Restore Section -->
+            <section id="container-backup-section" class="card">
+                <h2>Backup & Restore</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                    <label>Backup:</label>
+                    <button id="container-backup-btn" class="btn-secondary" disabled>Create Backup</button>
+                    </div>
+                    <div class="form-group">
+                    <label for="container-restore-select">Restore from backup:</label>
+                    <select id="container-restore-select" disabled>
+                    <option value="">-- Select backup file --</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="button-row" style="margin-top: 1rem;">
+                    <button id="container-restore-btn" class="btn-secondary" disabled>Restore Selected Backup</button>
+                </div>
+                <div id="container-action-message" class="message hidden"></div>
+            </section>
+    </sl-tab-panel>
+    <sl-tab-panel name="database">
+            <!-- Database Backup & Restore Section -->
+            <section id="database-backup-section" class="card">
+                <h2>Database Backup</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Create a full backup of all databases: core.db, logs.db, and memory.db</p>
+                <button id="database-backup-btn" class="btn-primary">Create Full Database Backup</button>
+            </section>
+
+            <!-- Database Restore Section -->
+            <section id="database-restore-section" class="card">
+                <h2>Restore Database</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Restore database from a previous backup. The system will automatically restart after restore.</p>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="database-restore-select">Select backup to restore:</label>
+                        <select id="database-restore-select">
+                            <option value="">-- Select backup --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button-row" style="margin-top: 1rem;">
+                    <button id="database-restore-btn" class="btn-secondary" disabled>Restore Selected Backup</button>
+                </div>
+                <div id="database-action-message" class="message hidden"></div>
+            </section>
+    </sl-tab-panel>
+</sl-tab-group>

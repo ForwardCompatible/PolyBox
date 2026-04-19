@@ -1,0 +1,30 @@
+# Rust build artifacts
+/target/
+!target/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Models (large binary files)
+/models/
+*.gguf
+*.bin
+
+# Playwright
+.playwright-mcp/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE / Editor
+.vscode/
+.kilocode/
+.idea/
+*.swp
+*.swo
