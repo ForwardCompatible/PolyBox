@@ -65,6 +65,8 @@ pub struct ToolCall {
 pub fn init_schema(conn: &Connection) -> rusqlite::Result<()> {
     conn.execute_batch(
         r#"
+        PRAGMA foreign_keys = ON;
+
         CREATE TABLE IF NOT EXISTS chat_sessions (
             session_id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
@@ -88,31 +90,6 @@ pub fn init_schema(conn: &Connection) -> rusqlite::Result<()> {
 
         CREATE INDEX IF NOT EXISTS idx_chat_logs_session ON chat_logs(session_id);
         CREATE INDEX IF NOT EXISTS idx_chat_logs_timestamp ON chat_logs(timestamp);
-
-        CREATE TABLE IF NOT EXISTS react_iterations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            chat_log_id INTEGER NOT NULL,
-            iteration_index INTEGER NOT NULL,
-            thought_content TEXT,
-            response_content TEXT,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (chat_log_id) REFERENCES chat_logs(id)
-        );
-
-        CREATE INDEX IF NOT EXISTS idx_react_iterations_chat_log ON react_iterations(chat_log_id);
-
-        CREATE TABLE IF NOT EXISTS tool_calls (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            iteration_id INTEGER NOT NULL,
-            tag_name TEXT NOT NULL,
-            parameters TEXT,
-            result TEXT,
-            success BOOLEAN,
-            FOREIGN KEY (iteration_id) REFERENCES react_iterations(id)
-        );
-
-        CREATE INDEX IF NOT EXISTS idx_tool_calls_iteration ON tool_calls(iteration_id);
-        CREATE INDEX IF NOT EXISTS idx_tool_calls_tag_name ON tool_calls(tag_name);
         "#,
     )?;
     Ok(())

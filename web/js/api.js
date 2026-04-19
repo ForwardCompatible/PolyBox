@@ -74,11 +74,6 @@ const API = {
         return this.request('GET', `/api/models/${modelType}`);
     },
 
-    // Chat history
-    async getChatHistory(sessionId, limit = 50) {
-        return this.request('GET', `/api/chat/${sessionId}?limit=${limit}`);
-    },
-
     // Database
     async createBackup() {
         return this.request('POST', '/api/database/backup');
