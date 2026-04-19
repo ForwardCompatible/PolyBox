@@ -1,0 +1,55 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+
+# Data and backups
+data/
+*.db
+*.db-wal
+*.db-shm
+backups/*
+
+# Models (large binary files)
+*.gguf
+*.bin
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Claude Code and related files
+.playwright-mcp/*
+.kilocode/*
+.remember/*
+.claude/*
+project_specs.archived/
+
+
+# Worktrees (isolated development workspaces)
+/.worktrees/*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Project and planning docs
+plans/*
+docs/*
+CLAUDE.md
+SPEC.md
+ROADMAP.md
