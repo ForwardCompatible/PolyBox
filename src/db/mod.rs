@@ -10,12 +10,18 @@ pub mod models;
 pub mod logs;
 pub mod memory;
 
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use rusqlite::Connection;
 use std::path::Path;
 use tracing::info;
 
 pub type DbPool = Arc<Mutex<Connection>>;
+
+/// Acquire a database connection from the pool with standardized error handling.
+/// Returns a MutexGuard holding the connection, converting lock failures to rusqlite::Error::InvalidQuery.
+pub fn get_conn(pool: &DbPool) -> rusqlite::Result<MutexGuard<'_, Connection>> {
+    pool.lock().map_err(|_e| rusqlite::Error::InvalidQuery)
+}
 
 pub fn init(data_dir: &Path) -> Result<(DbPool, DbPool, DbPool), Box<dyn std::error::Error + Send + Sync>> {
     let core_path = data_dir.join("core.db");

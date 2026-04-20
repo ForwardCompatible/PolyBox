@@ -7,14 +7,11 @@
 //!
 //! All implementation logic has been moved to individual single-responsibility modules.
 
-pub use super::seeds::{seed_action_registry, seed_personality};
 pub use super::schema::init_schema;
 pub use super::app_settings::{
-    AppSettings,
     AppSettingsUpdate,
     get_app_settings,
-    update_app_settings,
     update_app_settings_partial,
 };
-pub use super::actions::{ActionTag, get_action_registry};
-pub use super::models::{ModelConfigUpdate, ModelInfo, discover_models};
+pub use super::actions::get_action_registry;
+pub use super::models::{ModelConfigUpdate, discover_models};

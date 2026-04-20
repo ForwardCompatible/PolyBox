@@ -1,4 +1,21 @@
-//! Hardware monitoring — CPU, RAM, and GPU/VRAM via NVML
+//! hardware.rs
+//!
+//! Hardware monitoring module for CPU, RAM, and GPU/VRAM system metrics.
+//!
+//! Responsibilities:
+//! - Collect real-time CPU utilization statistics
+//! - Collect system RAM usage and total memory
+//! - Initialize and manage NVML interface for GPU monitoring
+//! - Collect VRAM usage statistics when GPU is available
+//! - Provide standardized hardware stats data structure
+//!
+//! Dependencies:
+//! - sysinfo for system hardware information
+//! - nvml_wrapper for NVIDIA GPU monitoring
+//! - serde for serialization
+//! - tracing for logging
+//!
+//! Last updated: 2026-04-20
 
 use serde::Serialize;
 use sysinfo::System;

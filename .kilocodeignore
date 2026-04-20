@@ -10,7 +10,7 @@
 *~
 
 # Models (large binary files)
-/models/
+/models/*
 *.gguf
 *.bin
 
@@ -28,3 +28,8 @@ __pycache__/
 .idea/
 *.swp
 *.swo
+
+# Claude Code and related files
+.remember/*
+.claude/*
+project_specs.archived/

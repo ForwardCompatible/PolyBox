@@ -10,6 +10,15 @@ const Router = {
     async init(pageModules) {
         this.pageModules = pageModules;
 
+        // Wait for DOM to be fully ready before attaching listeners
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.finishInit());
+        } else {
+            this.finishInit();
+        }
+    },
+
+    finishInit() {
         // Set up navigation listeners
         document.querySelectorAll('.nav-item[data-page]').forEach(item => {
             item.addEventListener('click', () => {

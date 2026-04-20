@@ -97,18 +97,16 @@
         import SystemEmbed from '/js/system-embed.js';
         import Settings from '/js/settings.js';
         import Database from '/js/database.js';
-        import Chat from '/js/chat.js';
+
         import ActionModal from '/js/action-modal.js';
 
         // Page module registry
         const pageModules = {
             chat: {
                 init: () => {
-                    Chat.init();
                     ActionModal.init();
                 },
                 unload: () => {
-                    Chat.unload();
                 }
             },
             system: {

@@ -25,6 +25,7 @@ use tracing::info;
 
 use crate::config;
 use crate::AppState;
+use crate::db::app_settings;
 
 /// Returns current running status for a specified service
 pub async fn get_service_status(
@@ -75,10 +76,14 @@ pub async fn start_service(
                     .unwrap_or(model_path)
             };
 
+            let ctx_size = config.ctx_size
+                .or_else(|| app_settings::get_orchestrator_ctx_size(&state.core_db).ok().flatten())
+                .unwrap_or(32000);
+
             let result = state.service_manager.start_orchestrator(
                 &model_path,
                 config.port as u16,
-                config.ctx_size.unwrap_or(32000),
+                ctx_size,
                 &config,
             );
             (model_path, result)
@@ -108,10 +113,14 @@ pub async fn start_service(
                     .unwrap_or(model_path)
             };
 
+            let embedding_ctx_size = config.embedding_ctx_size
+                .or_else(|| app_settings::get_embedding_ctx_size(&state.core_db).ok().flatten())
+                .unwrap_or(512);
+
             let result = state.service_manager.start_embedding(
                 &model_path,
                 config.port as u16,
-                config.embedding_ctx_size.unwrap_or(512),
+                embedding_ctx_size,
                 &config,
             );
             (model_path, result)

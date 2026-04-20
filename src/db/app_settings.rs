@@ -62,7 +62,7 @@ pub struct AppSettingsUpdate {
 }
 
 pub fn get_app_settings(pool: &DbPool) -> Result<AppSettings> {
-    let conn = pool.lock().map_err(|e| rusqlite::Error::InvalidParameterName(e.to_string()))?;
+    let conn = super::get_conn(pool)?;
     conn.query_row(
         "SELECT id, agent_name, user_name, user_timezone, orchestrator_ctx_size,
                 output_token_reserve, max_iterations, thinking_open_tag, thinking_close_tag,
@@ -161,6 +161,26 @@ pub fn update_app_settings_partial(
         health_check_timeout_secs: update.health_check_timeout_secs.unwrap_or(existing.health_check_timeout_secs),
     };
 
-    let conn = pool.lock().map_err(|e| rusqlite::Error::InvalidParameterName(e.to_string()))?;
+    let conn = super::get_conn(pool)?;
     update_app_settings(&conn, &merged)
+}
+
+/// Get orchestrator context size setting
+pub fn get_orchestrator_ctx_size(pool: &DbPool) -> Result<Option<i64>> {
+    let conn = super::get_conn(pool)?;
+    conn.query_row(
+        "SELECT orchestrator_ctx_size FROM app_settings WHERE id = 1",
+        [],
+        |row| row.get(0)
+    )
+}
+
+/// Get embedding context size setting
+pub fn get_embedding_ctx_size(pool: &DbPool) -> Result<Option<i64>> {
+    let conn = super::get_conn(pool)?;
+    conn.query_row(
+        "SELECT embeddings_dim FROM app_settings WHERE id = 1",
+        [],
+        |row| row.get(0)
+    )
 }

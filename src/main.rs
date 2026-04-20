@@ -1,4 +1,22 @@
-//! PolyBox 2.0 - AI Agent Framework
+//! main.rs
+//!
+//! Main entry point for the PolyBox 2.0 AI Agent Framework application.
+//!
+//! Responsibilities:
+//! - Initialize application logging and tracing
+//! - Load environment configuration
+//! - Initialize database connections and application state
+//! - Start web server and background services
+//! - Manage application lifecycle and shutdown
+//!
+//! Dependencies:
+//! - tokio async runtime
+//! - tracing for logging
+//! - axum web framework
+//! - database modules
+//! - web server modules
+//!
+//! Last updated: 2026-04-20
 
 mod config;
 mod db;
