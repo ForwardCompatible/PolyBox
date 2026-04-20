@@ -2,7 +2,7 @@
 
 **PolyBox** will be a local-first, self-improving AI agent that lives on your desktop — no terminal required. 
 
-Cloud-based orchestrator models are supported alongside local inference which helps ensure your data never leaves your machine — no telemetry, no phone-home, everything stored in a local database. The software is being intentionally architected to be AI-readable and AI-maintainable so your system can "meta-evolve"
+Designed as local-inference first to ensure your data never leaves your machine (claim obviously can't apply to cloud mode) — no telemetry, no phone-home, everything stored in a local database. The software is being intentionally architected to be AI-readable and AI-maintainable so your system can "meta-evolve"
 
 > *An agent that has never been trained for tool calling can not only use tools within PolyBox — it can create new ones for itself, and extend it's own framework FOR you.*
 
