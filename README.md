@@ -6,10 +6,6 @@ Designed as local-inference first to ensure your data never leaves your machine 
 
 > *An agent that has never been trained for tool calling can not only use tools within PolyBox — it can create new ones for itself, and extend it's own framework FOR you.*
 
-## Project Status
-### Completed
-
-
 ---
 
 ## Platform Support
