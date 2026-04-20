@@ -1,10 +1,40 @@
 # PolyBox
 
-**PolyBox** is a local-first, self-improving AI agent that lives on your desktop — no terminal required.
+**PolyBox** will be a local-first, self-improving AI agent that lives on your desktop — no terminal required. 
 
-Cloud-based orchestrator models are supported alongside local inference. Either way, your data never leaves your machine — no telemetry, no phone-home, everything stored in a local database.
+Cloud-based orchestrator models are supported alongside local inference which helps ensure your data never leaves your machine — no telemetry, no phone-home, everything stored in a local database. The software is being intentionally architected to be AI-readable and AI-maintainable so your system can "meta-evolve"
 
-> *An agent that has never been trained for tool calling can not only use tools — it can create new ones for itself.*
+> *An agent that has never been trained for tool calling can not only use tools within PolyBox — it can create new ones for itself, and extend it's own framework FOR you.*
+
+## Project Status
+### Completed
+- UI complete and functional
+- Agent loading system for Orchestrator and Embedding agent added.
+- llama.cpp flags passed to each model as expected
+- Real-time hardware monitoring added 
+- CPU-only mode confirmed possible 
+- All settings from UI update respective storage (json or SQLite db)
+- Graceful model shutdown added (augmentation needed)
+- Ui is "functional" Not 2026 design quality, (augmentation needed)
+
+### Next steps
+## PHASE 2: CONTEXT ASSEMBLY
+✅ **Depends on Phase 0 + Phase 1**
+ - ContextAssembler component implementation
+ - 8-section prompt assembly pipeline
+ - Token budget calculation
+ - Chat history trimming strategy
+ - Static section formatting implementation
+
+---
+
+## PHASE 3: DISPATCHER & HANDLERS
+✅ **Depends on Phase 1 + Phase 2**
+ - System handler routing implementation
+ - Python script execution dispatcher
+ - Dynamic action registration support
+ - Handler execution isolation
+ - Result collection and normalization
 
 ---
 
