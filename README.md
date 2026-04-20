@@ -8,33 +8,7 @@ Designed as local-inference first to ensure your data never leaves your machine 
 
 ## Project Status
 ### Completed
-- UI complete and functional
-- Agent loading system for Orchestrator and Embedding agent added.
-- llama.cpp flags passed to each model as expected
-- Real-time hardware monitoring added 
-- CPU-only mode confirmed possible 
-- All settings from UI update respective storage (json or SQLite db)
-- Graceful model shutdown added (augmentation needed)
-- Ui is "functional" Not 2026 design quality, (augmentation needed)
 
-### Next steps
-## PHASE 2: CONTEXT ASSEMBLY
-✅ **Depends on Phase 0 + Phase 1**
- - ContextAssembler component implementation
- - 8-section prompt assembly pipeline
- - Token budget calculation
- - Chat history trimming strategy
- - Static section formatting implementation
-
----
-
-## PHASE 3: DISPATCHER & HANDLERS
-✅ **Depends on Phase 1 + Phase 2**
- - System handler routing implementation
- - Python script execution dispatcher
- - Dynamic action registration support
- - Handler execution isolation
- - Result collection and normalization
 
 ---
 
@@ -49,11 +23,39 @@ Designed as local-inference first to ensure your data never leaves your machine 
 
 PolyBox is under active development. What works today:
 
-- Clean web UI to load and manage local AI models
+- Functional, clean web UI to load and manage local AI models
 - Supports both local (llama.cpp) and cloud-based orchestrator models
 - Automatic model discovery — drop a GGUF into the models folder and PolyBox finds it
 - Separate embedding model management for semantic memory
-- No command line required after initial setup
+- Agent loading system for Orchestrator and Embedding agent added.
+- llama.cpp flags passed to each model as expected
+- Real-time hardware monitoring added 
+- CPU-only, GPU only (CUDA only), and hybrid inference is working 
+- K and V quantization flags correctly apply quantization through llama.cpp
+- All settings from UI update respective storage (json or SQLite db)
+- Graceful model shutdown added (augmentation needed)
+- Qwen 3.5 27B Q5_K_M confirmed running @32k context on 6gb VRAM using RAM offload
+
+
+### Next steps
+#### PHASE 2: CONTEXT ASSEMBLY
+✅ **Depends on Phase 0 + Phase 1**
+ - ContextAssembler component implementation
+ - 8-section prompt assembly pipeline
+ - Token budget calculation
+ - Chat history trimming strategy
+ - Static section formatting implementation
+
+---
+
+#### PHASE 3: DISPATCHER & HANDLERS
+✅ **Depends on Phase 1 + Phase 2**
+ - System handler routing implementation
+ - Python script execution dispatcher
+ - Dynamic action registration support
+ - Handler execution isolation
+ - Result collection and normalization
+
 
 ---
 
@@ -91,13 +93,14 @@ PolyBox runs as a single Rust binary that manages everything:
 ### Model Directory Structure
 
 ```
-models/
-├── orchestrator/
-│   └── your-model-name/
-│       └── model.gguf
-└── embedding/
-    └── your-embedding-model/
-        └── model.gguf
+PolyBox/
+    └── models/
+        ├── orchestrator/
+        |   └── your-model-name/
+        |       └── model.gguf
+        └── embedding/
+            └── your-embedding-model/
+                └── model.gguf
 ```
 
 ### Run
